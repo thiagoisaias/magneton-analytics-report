@@ -8,7 +8,11 @@ export default function (data) {
   csv.pipe(ws).on('end', process.exit);
 
   Object.keys(data).forEach((userId) => {
-    csv.write({ email: data[userId].email, sessionDuration: data[userId].sessionDuration });
+    csv.write({
+      id: userId,
+      email: data[userId].email,
+      sessionDuration: data[userId].sessionDuration,
+    });
   });
 
   csv.end();

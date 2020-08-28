@@ -3,10 +3,12 @@ import parseData from './parseData';
 import fetchData from './fetchData';
 import exportData from './exportData';
 
+const { TIMEFRAME_START, TIMEFRAME_END } = process.env;
+
 async function start() {
   const timeframe = {
-    start: new Date(1589425200000), // 2020-05-14 00:00 SP
-    end: new Date(1589684400000), // 2020-05-17 00:00 SP
+    start: new Date(TIMEFRAME_START),
+    end: new Date(TIMEFRAME_END),
   };
 
   console.log('Starting...');
