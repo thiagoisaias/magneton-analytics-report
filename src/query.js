@@ -14,6 +14,7 @@ export default async function fetchData(timeframe) {
       event_collection: 'userSession',
       property_names: ['profile.user_id', 'profile.email', 'connected_at', 'disconnected_at'],
       timeframe,
+      timezone: 'America/Sao_Paulo',
     },
     {
       headers,
