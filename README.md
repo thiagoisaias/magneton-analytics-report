@@ -1,6 +1,5 @@
 # magneton-analytics-report
 
-- Update the timeframe in `index.js`.
 - Create an .env file with `KEEN_PROJECT_ID`, `KEEN_READ_KEY`, `TIMEFRAME_START` and `TIMEFRAME_END` values.
 - Run: `yarn`
 - Run: `yarn start`
