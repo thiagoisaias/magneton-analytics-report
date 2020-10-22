@@ -4,7 +4,8 @@ import fs from 'fs';
 export default function (data) {
   const csv = format({ headers: true });
 
-  const ws = fs.createWriteStream(`analytics_report_${Date.now()}.csv`);
+  const path = fs.mkdirSync(`./data/sessions/${Date.now()}`, { recursive: true });
+  const ws = fs.createWriteStream(`${path}/user_sessions.csv`);
   csv.pipe(ws).on('end', process.exit);
 
   Object.keys(data).forEach((userId) => {

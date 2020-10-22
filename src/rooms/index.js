@@ -1,7 +1,7 @@
 import 'dotenv/config';
-import parseData from './rooms/parseData';
-import fetchData from './rooms/fetchData';
-import exportData from './rooms/exportData';
+import parseData from './parseData';
+import fetchData from './fetchData';
+import exportData from './exportData';
 
 const { TIMEFRAME_START, TIMEFRAME_END } = process.env;
 
@@ -14,8 +14,6 @@ async function start() {
   console.log('Starting...');
 
   const analytics = await fetchData(timeframe);
-
-  console.log(analytics);
   const parsedData = parseData(analytics);
 
   exportData(parsedData);

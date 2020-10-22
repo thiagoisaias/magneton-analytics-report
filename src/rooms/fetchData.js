@@ -1,4 +1,4 @@
-import { addMinutes, isBefore } from 'date-fns';
+import { addHours, isBefore } from 'date-fns';
 import { camelizeKeys } from 'humps';
 import query from './query';
 
@@ -15,11 +15,11 @@ export default async function (timeframe) {
 
   while (isBefore(control, timeframe.end)) {
     try {
-      console.log(`Fetching data from ${control} to ${addMinutes(control, 30)}...`);
+      console.log(`Fetching data from ${control} to ${addHours(control, 1)}...`);
 
       const result = await query({
         start: control,
-        end: addMinutes(control, 30),
+        end: addHours(control, 1),
       });
 
       Object.keys(analytics).map((pageType) => {
@@ -29,7 +29,7 @@ export default async function (timeframe) {
     } catch (error) {
       console.log(error);
     } finally {
-      control = addMinutes(control, 30);
+      control = addHours(control, 1);
     }
   }
 
