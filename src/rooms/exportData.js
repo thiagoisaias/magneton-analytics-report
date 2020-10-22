@@ -10,7 +10,8 @@ export default function (data) {
   Object.keys(data).forEach((pageType) => {
     Object.keys(data[pageType]).forEach((pageId) => {
       const csv = format({ headers: true });
-      const ws = fs.createWriteStream(`${path}/${pageType}_${pageId}.csv`);
+      const pageName = data[pageType][pageId][0].pageName;
+      const ws = fs.createWriteStream(`${path}/${pageType} : ${pageName} (${pageId}).csv`);
 
       csv.pipe(ws).on('end', process.exit);
 
