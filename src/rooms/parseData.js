@@ -9,8 +9,12 @@ export default function parseData(data) {
   };
 
   Object.keys(data).forEach((pageType) => {
-    uniqBy(data[pageType], 'profile.userId').forEach(
-      ({ profile: { userId, email }, page: { id: pageId, name: pageName } }) => {
+    uniqBy(data[pageType], 'profile.userId').forEach((row) => {
+      try {
+        const {
+          profile: { userId, email },
+          page: { id: pageId, name: pageName },
+        } = row;
         if (!parsedData[pageType][pageId]) {
           parsedData[pageType][pageId] = [{ userId, email, pageName, pageId }];
         } else {
@@ -19,8 +23,12 @@ export default function parseData(data) {
             { userId, email, pageName, pageId },
           ];
         }
+      } catch (error) {
+        console.log(
+          `Something went wrong with data: ${row.profile?.email} ${row.profile?.id} ${row.page?.name} ${row.page?.type}`
+        );
       }
-    );
+    });
   });
 
   return parsedData;
