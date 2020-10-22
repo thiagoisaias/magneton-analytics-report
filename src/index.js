@@ -1,7 +1,7 @@
 import 'dotenv/config';
-import parseData from './parseData';
-import fetchData from './fetchData';
-import exportData from './exportData';
+import parseData from './rooms/parseData';
+import fetchData from './rooms/fetchData';
+import exportData from './rooms/exportData';
 
 const { TIMEFRAME_START, TIMEFRAME_END } = process.env;
 
@@ -14,12 +14,13 @@ async function start() {
   console.log('Starting...');
 
   const analytics = await fetchData(timeframe);
+
+  console.log(analytics);
   const parsedData = parseData(analytics);
 
   exportData(parsedData);
 
-  console.log(`Final Result: ${analytics.length} sessions were found!`);
-  console.log(`Final Result: ${Object.keys(parsedData).length} users were found!`);
+  console.log(`Done!`);
 }
 
 start();
