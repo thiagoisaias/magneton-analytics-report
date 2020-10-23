@@ -9,18 +9,15 @@ export default function (data) {
 
   Object.keys(data).forEach((pageType) => {
     Object.keys(data[pageType]).forEach((pageId) => {
-      const csv = format({ headers: true });
-      const pageName = data[pageType][pageId][0].pageName;
+      const csv = format();
+      const pageName = data[pageType][pageId].pageName;
       const ws = fs.createWriteStream(`${path}/${pageType} : ${pageName} (${pageId}).csv`);
 
       csv.pipe(ws).on('end', process.exit);
 
-      data[pageType][pageId].forEach(({ userId, email }) => {
-        csv.write({
-          userId,
-          email,
-        });
-      });
+      for (const email of data[pageType][pageId].emailList.values()) {
+        csv.write({ email });
+      }
 
       csv.end();
     });

@@ -1,5 +1,3 @@
-import uniqBy from 'lodash.uniqby';
-
 export default function parseData(data) {
   const parsedData = {
     transmission: {},
@@ -9,19 +7,18 @@ export default function parseData(data) {
   };
 
   Object.keys(data).forEach((pageType) => {
-    uniqBy(data[pageType], 'profile.userId').forEach((row) => {
+    console.log('pagetype size', data[pageType].length);
+    data[pageType].forEach((row) => {
       try {
         const {
-          profile: { userId, email },
+          profile: { email },
           page: { id: pageId, name: pageName },
         } = row;
-        if (!parsedData[pageType][pageId]) {
-          parsedData[pageType][pageId] = [{ userId, email, pageName, pageId }];
+        const currentPageIdSet = parsedData[pageType][pageId];
+        if (!currentPageIdSet) {
+          parsedData[pageType][pageId] = { pageName, emailList: new Set().add(email) };
         } else {
-          parsedData[pageType][pageId] = [
-            ...parsedData[pageType][pageId],
-            { userId, email, pageName, pageId },
-          ];
+          currentPageIdSet.emailList.add(email);
         }
       } catch (error) {
         console.log(
